@@ -9,6 +9,8 @@ import (
 )
 
 func getShortName(t *testing.T, inputName string, maxLength, suffixLength int, upper bool) string {
+	t.Helper()
+
 	tfOptions := tf.WithDefaultRetryableErrors(t, &tf.Options{
 		TerraformDir: ".",
 		Vars: map[string]interface{}{

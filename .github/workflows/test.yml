@@ -7,7 +7,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        terraform-versions: [0.14.8, latest]
+        terraform-versions: [0.14.8]
         go-versions: [1.16.x]
     steps:
       - name: Checkout
@@ -17,13 +17,17 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: ${{ matrix['terraform-versions'] }}
+          terraform_wrapper: false
+
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check
 
       - name: Setup Go
         uses: actions/setup-go@v2
         with:
           go-version: ${{ matrix['go-versions'] }}
 
-      - name: Run tests
+      - name: Test
         run: go test -count 1 -timeout 0
-        with:
-          working-directory: tests
+        working-directory: tests
