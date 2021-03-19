@@ -1,4 +1,4 @@
-# terraform-terraform-short-name
+# terraform-short-name
 
 Generate short, unique, sanitized terraform variable names.
 
@@ -11,7 +11,7 @@ In your Terraform file, instanciate the module with:
 
 ```hcl
 module "my_unique_name" {
-  source = "git@github.com:edgelaboratories/terraform-terraform-short-name.git?ref=v1"
+  source = "git@github.com:edgelaboratories/terraform-short-name.git?ref=v1"
 
   name          = "my-long-we?rd/.non-unique-name"
   max_length    = 20
