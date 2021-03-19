@@ -24,6 +24,4 @@ jobs:
           go-version: ${{ matrix['go-versions'] }}
 
       - name: Run tests
-        run: go test -count 1 -timeout 0
-        with:
-          working-directory: tests
+        run: cd tests; go test -count 1 -timeout 0
