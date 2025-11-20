@@ -11,26 +11,21 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        terraform-versions: [1.5.x]
-        go-versions: [1.23.x]
     steps:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3.1.2
-        with:
-          terraform_version: ${{ matrix['terraform-versions'] }}
-          terraform_wrapper: false
+      - name: Setup OpenTofu
+        uses: opentofu/setup-opentofu@v1
 
-      - name: Terraform fmt
+      - name: OpenTofu fmt
         id: fmt
-        run: terraform fmt -check
+        run: tofu fmt -check
 
       - name: Setup Go
         uses: actions/setup-go@v6
         with:
-          go-version: ${{ matrix['go-versions'] }}
+          go-version-file: tests/go.mod
 
       - name: Test
         run: go test -count 1 -timeout 0
